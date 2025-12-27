@@ -3,8 +3,33 @@
 @plugin '@tailwindcss/typography';
 
 @theme inline {
-  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-title: var(--font-playfair-display), ui-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-body: var(--font-pt-serif), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @theme {
+  --color-accent-50: #fdf7ef;
+  --color-accent-100: #f9ecdb;
+  --color-accent-200: #f3d6b5;
+  --color-accent-300: #edc092;
+  --color-accent-400: #e29355;
+  --color-accent-500: #db7734;
+  --color-accent-600: #cd6029;
+  --color-accent-700: #aa4a24;
+  --color-accent-800: #883c24;
+  --color-accent-900: #6e3420;
+  --color-accent-950: #3b180f;
+
+  --color-neutral-50: #f4f4f2;
+  --color-neutral-100: #e3e2de;
+  --color-neutral-200: #cac6be;
+  --color-neutral-300: #aba499;
+  --color-neutral-400: #928a7d;
+  --color-neutral-500: #847b6e;
+  --color-neutral-600: #70665e;
+  --color-neutral-700: #5b524d;
+  --color-neutral-800: #544c48;
+  --color-neutral-900: #463f3d;
+  --color-neutral-950: #272321;
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Roboto } from 'next/font/google'
+import { PT_Serif, Playfair_Display, Poppins } from 'next/font/google'
 import '@/styles/globals.css'
 import { cn } from '@/lib/utils'
 
@@ -7,20 +7,31 @@ type Props = {
   children: ReactNode
 }
 
-const roboto = Roboto({
-  weight: ['400', '500', '700', '900'],
+const ptSerif = PT_Serif({
+  variable: '--font-pt-serif',
   subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto',
+  weight: ['400'],
+})
+
+const playfairDisplay = Playfair_Display({
+  variable: '--font-playfair-display',
+  subsets: ['latin'],
+  weight: ['400'],
+})
+
+const poppins = Poppins({
+  variable: '--font-poppins',
+  subsets: ['latin'],
+  weight: ['400', '500'],
 })
 
 export const metadata = {
   description: {
-    default: 'Webseite description',
+    default: 'Gabriele Moll',
   },
   title: {
-    default: 'Website template',
-    template: '%s | Website template',
+    default: 'Gabriele Moll',
+    template: '%s | Gabriele Moll',
   },
   authors: [{ name: 'Andreas Remdt', url: 'https://andreasremdt.com' }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL),
@@ -28,7 +39,15 @@ export const metadata = {
 
 export default function Layout({ children }: Props) {
   return (
-    <html lang="en" className={cn(roboto.variable, 'antialiased')}>
+    <html
+      lang="de"
+      className={cn(
+        ptSerif.variable,
+        playfairDisplay.variable,
+        poppins.variable,
+        'antialiased font-body text-neutral-900',
+      )}
+    >
       <body>
         <main>{children}</main>
       </body>
