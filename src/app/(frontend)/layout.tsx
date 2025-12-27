@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { PT_Serif, Playfair_Display, Poppins } from 'next/font/google'
 import '@/styles/globals.css'
 import { cn } from '@/lib/utils'
+import Header from '@/components/layout/header'
+import Footer from '@/components/layout/footer'
 
 type Props = {
   children: ReactNode
@@ -49,7 +51,9 @@ export default function Layout({ children }: Props) {
       )}
     >
       <body>
-        <main>{children}</main>
+        <Header />
+        <main id="content">{children}</main>
+        <Footer />
       </body>
     </html>
   )
