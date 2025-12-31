@@ -203,6 +203,7 @@ export interface Page {
         | ExhibitionsBlock
         | GalleryBlock
         | TimelineBlock
+        | TextWithImageBlock
         | LocationMapBlock
       )[]
     | null;
@@ -352,6 +353,33 @@ export interface ExhibitionsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'exhibitions';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithImageBlock".
+ */
+export interface TextWithImageBlock {
+  intro: string;
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textWithImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -551,6 +579,7 @@ export interface PagesSelect<T extends boolean = true> {
         exhibitions?: T | ExhibitionsBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
+        textWithImage?: T | TextWithImageBlockSelect<T>;
         locationMap?: T | LocationMapBlockSelect<T>;
       };
   meta?:
@@ -669,6 +698,18 @@ export interface ExhibitionsBlockSelect<T extends boolean = true> {
   title?: T;
   numberOfExhibitions?: T;
   linkToExhibitions?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithImageBlock_select".
+ */
+export interface TextWithImageBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  content?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }

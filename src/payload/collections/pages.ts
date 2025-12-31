@@ -9,6 +9,7 @@ import exhibitions from '../blocks/exhibitions'
 import gallery from '../blocks/gallery'
 import timeline from '../blocks/timeline'
 import locationMap from '../blocks/location-map'
+import textWithImage from '../blocks/text-with-image'
 
 const pages: CollectionConfig = {
   slug: 'pages',
@@ -85,6 +86,7 @@ const pages: CollectionConfig = {
                 exhibitions,
                 gallery,
                 timeline,
+                textWithImage,
                 locationMap,
               ],
             },

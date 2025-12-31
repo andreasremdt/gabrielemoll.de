@@ -33,13 +33,13 @@ export default function useMobileMenu() {
     } else {
       document.body.classList.remove('overflow-y-hidden')
     }
-  }, [isMenuVisible])
+  }, [isMenuVisible, handleKeyDown])
 
   useEffect(() => {
     if (isMenuVisible) {
       setIsMenuVisible(false)
     }
-  }, [pathname])
+  }, [pathname, setIsMenuVisible])
 
   return {
     isMenuVisible,

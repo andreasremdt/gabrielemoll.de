@@ -8,6 +8,7 @@ import Exhibitions from './blocks/exhibitions'
 import Gallery from './blocks/gallery'
 import Timeline from './blocks/timeline'
 import LocationMap from './blocks/location-map'
+import TextWithImage from './blocks/text-with-image'
 
 type Props = {
   blocks: Page['content']
@@ -36,6 +37,8 @@ export default function BlockRenderer({ blocks }: Props) {
         return <Timeline {...block} key={block.id} />
       case 'locationMap':
         return <LocationMap {...block} key={block.id} />
+      case 'textWithImage':
+        return <TextWithImage {...block} key={block.id} />
       default:
         return null
     }

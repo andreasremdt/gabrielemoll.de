@@ -14,6 +14,7 @@ export default function Input({ className, type = 'text', id, error, ...props }:
         className,
       )}
       id={id}
+      type={type}
       aria-invalid={error ? 'true' : undefined}
       aria-describedby={error ? `${id}-error` : undefined}
       {...props}
