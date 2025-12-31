@@ -69,7 +69,7 @@ export default function Navigation({ items, title, size = 'base', className, ...
                   'lg:text-sm': size === 'sm',
                   'lg:text-base': size === 'base',
                 })}
-                href={`/${item.slug}`}
+                href={item.slug === 'home' ? '/' : `/${item.slug}`}
                 tabIndex={tabIndex}
                 prefetch
                 aria-current={pathname === `/${item.slug}` ? 'page' : undefined}

@@ -39,7 +39,7 @@ export default function useMobileMenu() {
     if (isMenuVisible) {
       setIsMenuVisible(false)
     }
-  }, [pathname, setIsMenuVisible])
+  }, [pathname])
 
   return {
     isMenuVisible,
