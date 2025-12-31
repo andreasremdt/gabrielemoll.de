@@ -16,6 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: 'Willkommen | Website template',
-    description: page.description,
+    description: '',
   }
 }
