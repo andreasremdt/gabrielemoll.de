@@ -9,8 +9,8 @@ export default function Footer({ className, ...props }: ComponentPropsWithoutRef
       className={cn('border-t border-neutral-100 font-sans py-8 text-sm bg-accent-50', className)}
       {...props}
     >
-      <div className="container mx-auto px-4 flex justify-between gap-8">
-        <p>
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <p className="order-2 md:order-1">
           &copy; {new Date().getFullYear()} Gabriele Moll. Alle Rechte vorbehalten.
           <br />
           Design & Entwicklung von{' '}
@@ -21,6 +21,9 @@ export default function Footer({ className, ...props }: ComponentPropsWithoutRef
         </p>
 
         <Navigation
+          title="Fußmenü"
+          size="sm"
+          className="md:justify-self-end order-1 md:order-2"
           items={[
             { href: '/datenschutz', label: 'Datenschutz' },
             { href: '/impressum', label: 'Impressum' },

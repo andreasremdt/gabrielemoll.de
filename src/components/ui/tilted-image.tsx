@@ -11,7 +11,7 @@ export default function Image({ className, figureProps, image, ...props }: Props
     <figure
       {...figureProps}
       className={cn(
-        'isolate relative max-w-max after:-z-10 after:inset-0 after:bg-accent-100 after:-rotate-12 after:absolute',
+        'isolate relative max-w-max after:-z-10 md:after:inset-0 after:inset-4 after:bg-accent-100 after:-rotate-12 after:absolute',
         figureProps?.className,
       )}
     >

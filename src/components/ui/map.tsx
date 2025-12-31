@@ -1,6 +1,7 @@
 'use client'
 
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
+import { cn } from '@/lib/utils'
 
 type Props = {
   className?: string
@@ -15,7 +16,7 @@ export default function Map({ className }: Props) {
     <MapContainer
       center={[LATITUDE, LONGITUDE]}
       zoom={ZOOM}
-      className={className}
+      className={cn('z-10', className)}
       scrollWheelZoom={false}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

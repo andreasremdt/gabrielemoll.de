@@ -11,12 +11,13 @@ export default function Header({ className, ...props }: ComponentPropsWithoutRef
       </Link>
 
       <header className={cn('border-b border-neutral-100 py-8 bg-accent-50', className)} {...props}>
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="font-title text-3xl text-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+          <Link href="/" className="font-title text-2xl sm:text-3xl text-neutral-950">
             Gabriele Moll
           </Link>
 
           <Navigation
+            title="Hauptmenü"
             items={[
               { href: '/', label: 'Startseite' },
               { href: '/atelier', label: 'Atelier' },

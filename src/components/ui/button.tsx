@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode, RefObject } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
@@ -6,6 +6,7 @@ type BaseProps = {
   variant?: 'primary' | 'secondary'
   children: ReactNode
   className?: string
+  ref?: RefObject<HTMLButtonElement | null>
 }
 
 type ButtonProps = BaseProps &
@@ -27,6 +28,7 @@ export default function Button({
   type = 'button',
   variant = 'primary',
   href,
+  ref,
   ...props
 }: Props) {
   const baseClasses = cn(
@@ -52,7 +54,12 @@ export default function Button({
   }
 
   return (
-    <button className={baseClasses} type={type} {...(props as ComponentPropsWithoutRef<'button'>)}>
+    <button
+      className={baseClasses}
+      type={type}
+      ref={ref}
+      {...(props as ComponentPropsWithoutRef<'button'>)}
+    >
       {children}
     </button>
   )
