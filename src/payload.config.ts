@@ -14,6 +14,7 @@ import pages from './payload/collections/pages'
 import messages from './payload/collections/messages'
 import works from './payload/collections/works'
 import exhibitions from './payload/collections/exhibitions'
+import menus from './payload/globals/menus'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,6 +27,7 @@ export default buildConfig({
     },
   },
   collections: [users, media, pages, messages, works, exhibitions],
+  globals: [menus],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
   typescript: {

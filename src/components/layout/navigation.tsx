@@ -1,6 +1,7 @@
 'use client'
 
 import type { ComponentPropsWithoutRef } from 'react'
+import type { Page } from '@/payload-types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -12,10 +13,7 @@ import Button from '../ui/button'
 type Props = ComponentPropsWithoutRef<'nav'> & {
   title: string
   size?: 'sm' | 'base'
-  items: {
-    href: string
-    label: string
-  }[]
+  items: (string | Page)[]
 }
 
 export default function Navigation({ items, title, size = 'base', className, ...props }: Props) {
@@ -58,22 +56,29 @@ export default function Navigation({ items, title, size = 'base', className, ...
       >
         <h2 className="font-title text-3xl lg:hidden">{title}</h2>
 
-        {items.map((item) => (
-          <li key={item.href}>
-            <Link
-              className={cn('hover:text-accent-700 text-lg', {
-                'text-accent-800': pathname === item.href,
-                'lg:text-sm': size === 'sm',
-                'lg:text-base': size === 'base',
-              })}
-              href={item.href}
-              tabIndex={tabIndex}
-              prefetch
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
+        {items.map((item) => {
+          if (typeof item === 'string') {
+            return null
+          }
+
+          return (
+            <li key={item.id}>
+              <Link
+                className={cn('hover:text-accent-700 text-lg', {
+                  'text-accent-800': pathname === `/${item.slug}`,
+                  'lg:text-sm': size === 'sm',
+                  'lg:text-base': size === 'base',
+                })}
+                href={`/${item.slug}`}
+                tabIndex={tabIndex}
+                prefetch
+                aria-current={pathname === `/${item.slug}` ? 'page' : undefined}
+              >
+                {item.title}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

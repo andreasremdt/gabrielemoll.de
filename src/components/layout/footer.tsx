@@ -1,9 +1,12 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { getMenus } from '@/lib/fetchers'
 import Navigation from './navigation'
 
-export default function Footer({ className, ...props }: ComponentPropsWithoutRef<'footer'>) {
+export default async function Footer({ className, ...props }: ComponentPropsWithoutRef<'footer'>) {
+  const menus = await getMenus()
+
   return (
     <footer
       className={cn('border-t border-neutral-100 font-sans py-8 text-sm bg-accent-50', className)}
@@ -24,12 +27,7 @@ export default function Footer({ className, ...props }: ComponentPropsWithoutRef
           title="Fußmenü"
           size="sm"
           className="md:justify-self-end order-1 md:order-2"
-          items={[
-            { href: '/datenschutz', label: 'Datenschutz' },
-            { href: '/impressum', label: 'Impressum' },
-            { href: '/kontakt', label: 'Kontakt' },
-            { href: '/links', label: 'Links' },
-          ]}
+          items={menus.footerMenu}
         />
       </div>
     </footer>

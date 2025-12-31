@@ -44,3 +44,12 @@ export const getExhibitions = cache(async function getExhibitions(limit: number 
 
   return result.docs
 })
+
+export const getMenus = cache(async function getMenus() {
+  const payload = await getPayload({ config })
+  const result = await payload.findGlobal({
+    slug: 'menus',
+  })
+
+  return result
+})

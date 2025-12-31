@@ -95,8 +95,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    menus: Menu;
+  };
+  globalsSelect: {
+    menus: MenusSelect<false> | MenusSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -760,6 +764,28 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus".
+ */
+export interface Menu {
+  id: string;
+  mainMenu: (string | Page)[];
+  footerMenu: (string | Page)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus_select".
+ */
+export interface MenusSelect<T extends boolean = true> {
+  mainMenu?: T;
+  footerMenu?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
