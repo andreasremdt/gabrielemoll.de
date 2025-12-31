@@ -7,6 +7,7 @@ const exhibitions: Block = {
     singular: 'Ausstellungen',
   },
   interfaceName: 'ExhibitionsBlock',
+  imageURL: '/blocks/exhibitions.png',
   fields: [
     {
       name: 'intro',

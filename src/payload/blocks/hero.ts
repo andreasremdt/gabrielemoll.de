@@ -7,6 +7,7 @@ const hero: Block = {
     singular: 'Hero',
   },
   interfaceName: 'HeroBlock',
+  imageURL: '/blocks/hero.png',
   fields: [
     {
       name: 'intro',

@@ -7,6 +7,7 @@ const locationMap: Block = {
     singular: 'Karte',
   },
   interfaceName: 'LocationMapBlock',
+  imageURL: '/blocks/location-map.png',
   fields: [
     {
       name: 'intro',

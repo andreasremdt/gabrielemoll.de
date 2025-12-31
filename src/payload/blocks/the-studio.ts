@@ -7,6 +7,7 @@ const theStudio: Block = {
     singular: 'Das Atelier',
   },
   interfaceName: 'TheStudioBlock',
+  imageURL: '/blocks/the-studio.png',
   fields: [
     {
       name: 'title',

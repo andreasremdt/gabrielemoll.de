@@ -8,7 +8,6 @@ import theStudio from '../blocks/the-studio'
 import exhibitions from '../blocks/exhibitions'
 import gallery from '../blocks/gallery'
 import timeline from '../blocks/timeline'
-import textWithImage from '../blocks/text-with-image'
 import locationMap from '../blocks/location-map'
 
 const pages: CollectionConfig = {
@@ -86,7 +85,6 @@ const pages: CollectionConfig = {
                 exhibitions,
                 gallery,
                 timeline,
-                textWithImage,
                 locationMap,
               ],
             },

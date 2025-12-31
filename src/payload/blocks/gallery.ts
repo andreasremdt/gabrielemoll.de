@@ -7,6 +7,7 @@ const gallery: Block = {
     singular: 'Galerie',
   },
   interfaceName: 'GalleryBlock',
+  imageURL: '/blocks/gallery.png',
   fields: [
     {
       name: 'mainPartOfPage',

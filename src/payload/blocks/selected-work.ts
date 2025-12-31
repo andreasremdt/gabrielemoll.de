@@ -7,6 +7,7 @@ const selectedWork: Block = {
     singular: 'Selektierte Werke',
   },
   interfaceName: 'SelectedWorkBlock',
+  imageURL: '/blocks/selected-work.png',
   fields: [
     {
       name: 'title',
