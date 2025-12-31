@@ -5,8 +5,7 @@ import { getPayload } from 'payload'
 import { validateMessageForm, hasValidationErrors, type ValidationErrors } from '@/lib/validation'
 
 type FormInputData = {
-  firstname: string
-  lastname: string
+  name: string
   email: string
   phone?: string
   message: string
@@ -30,23 +29,22 @@ export default async function sendMessage(data: FormInputData): Promise<SendMess
     }
   }
 
-  const { firstname, lastname, email, phone, message } = data
+  const { name, email, phone, message } = data
 
   try {
     const payload = await getPayload({ config })
 
     await payload.sendEmail({
       to: '',
-      subject: `Anfrage von ${firstname} ${lastname}`,
+      subject: `Anfrage von ${name}`,
       replyTo: email,
-      text: `Name: ${firstname} ${lastname}\nE-Mail: ${email}\nTelefon: ${phone || '-'}\n\n${message}`,
+      text: `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone || '-'}\n\n${message}`,
     })
 
     await payload.create({
       collection: 'messages',
       data: {
-        firstname,
-        lastname,
+        name,
         email,
         phone,
         message,

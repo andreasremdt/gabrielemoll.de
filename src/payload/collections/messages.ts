@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 const messages: CollectionConfig = {
   slug: 'messages',
   admin: {
-    useAsTitle: 'firstname',
+    useAsTitle: 'name',
   },
   labels: {
     singular: 'Nachricht',
@@ -17,17 +17,8 @@ const messages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'firstname',
-      label: 'Vorname',
-      type: 'text',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
-      name: 'lastname',
-      label: 'Nachname',
+      name: 'name',
+      label: 'Vor- und Nachname',
       type: 'text',
       required: true,
       admin: {

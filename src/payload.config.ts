@@ -12,6 +12,8 @@ import users from './payload/collections/users'
 import media from './payload/collections/media'
 import pages from './payload/collections/pages'
 import messages from './payload/collections/messages'
+import works from './payload/collections/works'
+import exhibitions from './payload/collections/exhibitions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [users, media, pages, messages],
+  collections: [users, media, pages, messages, works, exhibitions],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
   typescript: {

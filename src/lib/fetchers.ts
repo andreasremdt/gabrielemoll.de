@@ -32,3 +32,15 @@ export const getAllPages = cache(async function getAllPages() {
 
   return result.docs
 })
+
+export const getExhibitions = cache(async function getExhibitions(limit: number = 5) {
+  const payload = await getPayload({ config })
+  const result = await payload.find({
+    collection: 'exhibitions',
+    pagination: false,
+    draft: false,
+    limit,
+  })
+
+  return result.docs
+})

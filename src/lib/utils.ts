@@ -5,6 +5,14 @@ export function cn(...classes: ClassValue[]) {
   return twMerge(clsx(...classes))
 }
 
+export function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })
+}
+
 export function canUseDOM() {
   return Boolean(typeof window !== 'undefined' && window.document && window.document.createElement)
 }

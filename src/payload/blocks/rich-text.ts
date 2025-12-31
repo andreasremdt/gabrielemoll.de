@@ -1,4 +1,6 @@
 import type { Block } from 'payload'
+import gallery from './gallery'
+import timeline from './timeline'
 
 const richText: Block = {
   slug: 'richText',
@@ -9,10 +11,26 @@ const richText: Block = {
   interfaceName: 'RichTextBlock',
   fields: [
     {
+      name: 'intro',
+      type: 'text',
+      label: 'Einleitung',
+    },
+    {
+      name: 'title',
+      type: 'text',
+      label: 'Titel',
+    },
+    {
       name: 'content',
       type: 'richText',
       label: 'Inhalt',
       required: true,
+    },
+    {
+      name: 'blocks',
+      type: 'blocks',
+      label: 'Nebeninhalt',
+      blocks: [gallery, timeline],
     },
   ],
 }

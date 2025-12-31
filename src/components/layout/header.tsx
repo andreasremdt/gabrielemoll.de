@@ -24,6 +24,7 @@ export default function Header({ className, ...props }: ComponentPropsWithoutRef
               { href: '/werke', label: 'Werke' },
               { href: '/ausstellungen', label: 'Ausstellungen' },
               { href: '/kurse', label: 'Kinderkurse' },
+              { href: '/links', label: 'Links' },
               { href: '/kontakt', label: 'Kontakt' },
             ]}
           />

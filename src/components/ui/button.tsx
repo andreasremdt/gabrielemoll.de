@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 type BaseProps = {
   variant?: 'primary' | 'secondary'
@@ -30,9 +30,9 @@ export default function Button({
   ...props
 }: Props) {
   const baseClasses = cn(
-    '',
+    'font-sans font-medium uppercase cursor-pointer',
     {
-      '': variant === 'primary',
+      'text-accent-800 hover:text-accent-700': variant === 'primary',
       '': variant === 'secondary',
     },
     className,

@@ -71,6 +71,8 @@ export interface Config {
     media: Media;
     pages: Page;
     messages: Message;
+    works: Work;
+    exhibitions: Exhibition;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +84,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
+    works: WorksSelect<false> | WorksSelect<true>;
+    exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -185,7 +189,20 @@ export interface Page {
    * Der Slug wird verwendet, um die Seite im Browser zu identifizieren.
    */
   slug: string;
-  content?: (RichTextBlock | ContactFormBlock)[] | null;
+  content?:
+    | (
+        | RichTextBlock
+        | ContactFormBlock
+        | SelectedWorkBlock
+        | HeroBlock
+        | TheStudioBlock
+        | ExhibitionsBlock
+        | GalleryBlock
+        | TimelineBlock
+        | TextWithImageBlock
+        | LocationMapBlock
+      )[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -203,6 +220,8 @@ export interface Page {
  * via the `definition` "RichTextBlock".
  */
 export interface RichTextBlock {
+  intro?: string | null;
+  title?: string | null;
   content: {
     root: {
       type: string;
@@ -218,22 +237,162 @@ export interface RichTextBlock {
     };
     [k: string]: unknown;
   };
+  blocks?: (GalleryBlock | TimelineBlock)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'richText';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  mainPartOfPage?: boolean | null;
+  intro?: string | null;
+  title?: string | null;
+  images: (string | Media)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock".
+ */
+export interface TimelineBlock {
+  intro?: string | null;
+  title?: string | null;
+  type: 'withImages' | 'withoutImages';
+  items: {
+    year: string;
+    content: string;
+    image?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'timeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContactFormBlock".
  */
 export interface ContactFormBlock {
-  /**
-   * Die E-Mail-Adresse, an die die Nachrichten gesendet werden sollen.
-   */
-  recipient: string;
+  intro: string;
+  title: string;
+  image: string | Media;
+  address: string;
+  phone?: string | null;
+  mobile?: string | null;
+  email: string;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contactForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SelectedWorkBlock".
+ */
+export interface SelectedWorkBlock {
+  title: string;
+  work: (string | Work)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'selectedWork';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works".
+ */
+export interface Work {
+  id: string;
+  title: string;
+  date: string;
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  intro: string;
+  title: string;
+  content: string;
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TheStudioBlock".
+ */
+export interface TheStudioBlock {
+  title: string;
+  intro: string;
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'theStudio';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExhibitionsBlock".
+ */
+export interface ExhibitionsBlock {
+  intro?: string | null;
+  title: string;
+  numberOfExhibitions?: number | null;
+  linkToExhibitions?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'exhibitions';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithImageBlock".
+ */
+export interface TextWithImageBlock {
+  intro: string;
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: string | Media;
+  imageIsLeft?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textWithImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationMapBlock".
+ */
+export interface LocationMapBlock {
+  intro?: string | null;
+  title: string;
+  directions: {
+    title?: string | null;
+    content?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'locationMap';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -241,11 +400,24 @@ export interface ContactFormBlock {
  */
 export interface Message {
   id: string;
-  firstname: string;
-  lastname: string;
+  name: string;
   email: string;
   phone?: string | null;
   message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions".
+ */
+export interface Exhibition {
+  id: string;
+  title: string;
+  description?: string | null;
+  date: string;
+  published?: boolean | null;
+  image: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -288,6 +460,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'messages';
         value: string | Message;
+      } | null)
+    | ({
+        relationTo: 'works';
+        value: string | Work;
+      } | null)
+    | ({
+        relationTo: 'exhibitions';
+        value: string | Exhibition;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -390,6 +570,14 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         richText?: T | RichTextBlockSelect<T>;
         contactForm?: T | ContactFormBlockSelect<T>;
+        selectedWork?: T | SelectedWorkBlockSelect<T>;
+        hero?: T | HeroBlockSelect<T>;
+        theStudio?: T | TheStudioBlockSelect<T>;
+        exhibitions?: T | ExhibitionsBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
+        timeline?: T | TimelineBlockSelect<T>;
+        textWithImage?: T | TextWithImageBlockSelect<T>;
+        locationMap?: T | LocationMapBlockSelect<T>;
       };
   meta?:
     | T
@@ -407,7 +595,46 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "RichTextBlock_select".
  */
 export interface RichTextBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
   content?: T;
+  blocks?:
+    | T
+    | {
+        gallery?: T | GalleryBlockSelect<T>;
+        timeline?: T | TimelineBlockSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  mainPartOfPage?: T;
+  intro?: T;
+  title?: T;
+  images?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock_select".
+ */
+export interface TimelineBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  type?: T;
+  items?:
+    | T
+    | {
+        year?: T;
+        content?: T;
+        image?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -416,7 +643,88 @@ export interface RichTextBlockSelect<T extends boolean = true> {
  * via the `definition` "ContactFormBlock_select".
  */
 export interface ContactFormBlockSelect<T extends boolean = true> {
-  recipient?: T;
+  intro?: T;
+  title?: T;
+  image?: T;
+  address?: T;
+  phone?: T;
+  mobile?: T;
+  email?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SelectedWorkBlock_select".
+ */
+export interface SelectedWorkBlockSelect<T extends boolean = true> {
+  title?: T;
+  work?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  content?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TheStudioBlock_select".
+ */
+export interface TheStudioBlockSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExhibitionsBlock_select".
+ */
+export interface ExhibitionsBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  numberOfExhibitions?: T;
+  linkToExhibitions?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithImageBlock_select".
+ */
+export interface TextWithImageBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  content?: T;
+  image?: T;
+  imageIsLeft?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationMapBlock_select".
+ */
+export interface LocationMapBlockSelect<T extends boolean = true> {
+  intro?: T;
+  title?: T;
+  directions?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -425,11 +733,34 @@ export interface ContactFormBlockSelect<T extends boolean = true> {
  * via the `definition` "messages_select".
  */
 export interface MessagesSelect<T extends boolean = true> {
-  firstname?: T;
-  lastname?: T;
+  name?: T;
   email?: T;
   phone?: T;
   message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works_select".
+ */
+export interface WorksSelect<T extends boolean = true> {
+  title?: T;
+  date?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions_select".
+ */
+export interface ExhibitionsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  date?: T;
+  published?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }

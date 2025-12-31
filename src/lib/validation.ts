@@ -1,14 +1,12 @@
 type FormInputData = {
-  firstname: string
-  lastname: string
+  name: string
   email: string
   phone?: string
   message: string
 }
 
 export type ValidationErrors = {
-  firstname?: string[]
-  lastname?: string[]
+  name?: string[]
   email?: string[]
   phone?: string[]
   message?: string[]
@@ -17,17 +15,9 @@ export type ValidationErrors = {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const MIN_MESSAGE_LENGTH = 10
 
-export function validateFirstname(value: string): string | undefined {
+export function validateName(value: string): string | undefined {
   if (!value || value.trim() === '') {
-    return 'Vorname ist erforderlich'
-  }
-
-  return undefined
-}
-
-export function validateLastname(value: string): string | undefined {
-  if (!value || value.trim() === '') {
-    return 'Nachname ist erforderlich'
+    return 'Vor- und Nachname ist erforderlich'
   }
 
   return undefined
@@ -63,14 +53,9 @@ export function validateMessage(value: string): string | undefined {
 export function validateMessageForm(data: FormInputData): ValidationErrors {
   const errors: ValidationErrors = {}
 
-  const firstnameError = validateFirstname(data.firstname)
-  if (firstnameError) {
-    errors.firstname = [firstnameError]
-  }
-
-  const lastnameError = validateLastname(data.lastname)
-  if (lastnameError) {
-    errors.lastname = [lastnameError]
+  const nameError = validateName(data.name)
+  if (nameError) {
+    errors.name = [nameError]
   }
 
   const emailError = validateEmail(data.email)

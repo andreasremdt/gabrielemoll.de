@@ -1,234 +1,60 @@
-'use client'
+import type { ContactFormBlock } from '@/payload-types'
+import PageTitle from '../ui/page-title'
+import ContactFormClient from './contact-form.client'
+import TiltedImage from '../ui/tilted-image'
 
-import { useForm } from '@tanstack/react-form'
-import { useRef, useState } from 'react'
-import Label from '../ui/label'
-import Input from '../ui/input'
-import Textarea from '../ui/textarea'
-import Button from '../ui/button'
-import FieldError from '../ui/field-error'
-import Alert from '../ui/alert'
-import sendMessage from '@/actions/send-message'
-import {
-  validateFirstname,
-  validateLastname,
-  validateEmail,
-  validateMessage,
-} from '@/lib/validation'
-
-export default function ContactForm() {
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const formRef = useRef<HTMLFormElement>(null)
-
-  const form = useForm({
-    defaultValues: {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phone: '',
-      message: '',
-    },
-    onSubmit: async ({ value }) => {
-      try {
-        setSubmitStatus('loading')
-
-        const response = await sendMessage(value)
-
-        if (!response.success) {
-          if (response.errors) {
-            Object.entries(response.errors).forEach(([fieldName, fieldErrors]) => {
-              if (fieldErrors && fieldErrors.length > 0) {
-                form.setFieldMeta(fieldName as keyof typeof value, (prev) => ({
-                  ...prev,
-                  errors: fieldErrors,
-                }))
-              }
-            })
-            return
-          }
-
-          throw new Error('Fehler beim Senden der Nachricht')
-        }
-
-        setSubmitStatus('success')
-      } catch (_) {
-        setSubmitStatus('error')
-      }
-    },
-    onSubmitInvalid: () => {
-      if (formRef.current) {
-        const firstInvalidInput =
-          formRef.current.querySelector<HTMLInputElement>('[aria-invalid="true"]')
-
-        if (firstInvalidInput) {
-          firstInvalidInput.focus()
-        }
-      }
-    },
-  })
-
+export default function ContactForm({
+  intro,
+  title,
+  image,
+  address,
+  phone,
+  mobile,
+  email,
+}: ContactFormBlock) {
   return (
-    <>
-      {submitStatus === 'success' ? (
-        <Alert title="Vielen Dank für Ihre Nachricht." variant="success" className="mb-8">
-          Wir werden uns schnellstmöglich um Ihre Nachricht kümmern.
-        </Alert>
-      ) : null}
+    <section className="py-16 md:py-32">
+      <div className="max-w-7xl mx-auto px-4">
+        <PageTitle intro={intro} title={title} />
 
-      {submitStatus === 'error' ? (
-        <Alert title="Fehler beim Senden der Nachricht." variant="error" className="mb-8">
-          Bitte versuchen Sie es später erneut oder schreiben Sie uns eine E-Mail an{' '}
-          <a
-            href="mailto:info@regio-lions.de"
-            className="text-primary-900 font-medium underline hover:text-gray-900 focus-visible:text-gray-900"
-          >
-            info@regio-lions.de
-          </a>
-          .
-        </Alert>
-      ) : null}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <TiltedImage image={image} width={400} height={600} className="hidden lg:block" />
 
-      <div className="flex flex-col gap-x-12 lg:flex-row">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
-          }}
-          ref={formRef}
-          className="shrink-0 lg:w-2/3 print:hidden"
-          noValidate
-        >
-          <div className="mb-4 flex flex-col gap-4 sm:flex-row md:mb-8 md:gap-8">
-            <form.Field
-              name="firstname"
-              validators={{
-                onChange: ({ value }) => validateFirstname(value),
-              }}
-            >
-              {(field) => (
-                <div className="sm:w-1/2">
-                  <Label htmlFor="firstname">Vorname</Label>
-                  <Input
-                    id="firstname"
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    required
-                    autoComplete="given-name"
-                    error={field.state.meta.errors[0]}
-                  />
-                  <FieldError id={field.name} error={field.state.meta.errors[0]} />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field
-              name="lastname"
-              validators={{
-                onChange: ({ value }) => validateLastname(value),
-              }}
-            >
-              {(field) => (
-                <div className="sm:w-1/2">
-                  <Label htmlFor="lastname">Nachname</Label>
-                  <Input
-                    id="lastname"
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    required
-                    autoComplete="family-name"
-                    error={field.state.meta.errors[0]}
-                  />
-                  <FieldError id={field.name} error={field.state.meta.errors[0]} />
-                </div>
-              )}
-            </form.Field>
-          </div>
-
-          <div className="mb-4 flex flex-col gap-4 sm:flex-row md:mb-8 md:gap-8">
-            <form.Field
-              name="email"
-              validators={{
-                onChange: ({ value }) => validateEmail(value),
-              }}
-            >
-              {(field) => (
-                <div className="sm:w-1/2">
-                  <Label htmlFor="email">E-Mail</Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    required
-                    autoComplete="email"
-                    error={field.state.meta.errors[0]}
-                  />
-                  <FieldError id={field.name} error={field.state.meta.errors[0]} />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="phone">
-              {(field) => (
-                <div className="sm:w-1/2">
-                  <Label htmlFor="phone" optional>
-                    Telefonnummer
-                  </Label>
-                  <Input
-                    id="phone"
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    autoComplete="tel"
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-
-          <form.Field
-            name="message"
-            validators={{
-              onChange: ({ value }) => validateMessage(value),
-            }}
-          >
-            {(field) => (
-              <div className="mb-4 md:mb-8">
-                <Label htmlFor="message">Ihre Nachricht</Label>
-                <Textarea
-                  name={field.name}
-                  id="message"
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  required
-                  minLength={10}
-                  error={field.state.meta.errors[0]}
-                />
-                <FieldError id={field.name} error={field.state.meta.errors[0]} />
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h2 className="text-accent-800 font-sans text-lg mb-2">Anschrift</h2>
+                <p dangerouslySetInnerHTML={{ __html: address.replace(/\n/g, '<br />') }} />
               </div>
-            )}
-          </form.Field>
 
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={submitStatus === 'loading' || submitStatus === 'success'}
-          >
-            {submitStatus === 'success' ? 'Nachricht erfolgreich gesendet' : null}
-            {submitStatus === 'loading' ? 'Wird gesendet...' : null}
-            {submitStatus === 'idle' ? 'Nachricht senden' : null}
-            {submitStatus === 'error' ? 'Fehler beim Senden' : null}
-          </Button>
-        </form>
+              <div>
+                <h2 className="text-accent-800 font-sans text-lg mb-2">Kontakt</h2>
+                <ul>
+                  <li>
+                    Telefon:{' '}
+                    <a href={`tel:${phone}`} className="text-accent-800 hover:text-accent-700">
+                      {phone}
+                    </a>
+                  </li>
+                  <li>
+                    Mobil:{' '}
+                    <a href={`tel:${mobile}`} className="text-accent-800 hover:text-accent-700">
+                      {mobile}
+                    </a>
+                  </li>
+                  <li>
+                    E-Mail:{' '}
+                    <a href={`mailto:${email}`} className="text-accent-800 hover:text-accent-700">
+                      {email}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <ContactFormClient />
+          </div>
+        </div>
       </div>
-    </>
+    </section>
   )
 }

@@ -2,6 +2,14 @@ import type { CollectionConfig } from 'payload'
 import richText from '../blocks/rich-text'
 import contactForm from '../blocks/contact-form'
 import { generatePreviewPath, revalidateDelete, revalidatePage } from '@/lib/live-preview'
+import selectedWork from '../blocks/selected-work'
+import hero from '../blocks/hero'
+import theStudio from '../blocks/the-studio'
+import exhibitions from '../blocks/exhibitions'
+import gallery from '../blocks/gallery'
+import timeline from '../blocks/timeline'
+import textWithImage from '../blocks/text-with-image'
+import locationMap from '../blocks/location-map'
 
 const pages: CollectionConfig = {
   slug: 'pages',
@@ -69,7 +77,18 @@ const pages: CollectionConfig = {
               name: 'content',
               type: 'blocks',
               label: 'Elemente',
-              blocks: [richText, contactForm],
+              blocks: [
+                richText,
+                contactForm,
+                selectedWork,
+                hero,
+                theStudio,
+                exhibitions,
+                gallery,
+                timeline,
+                textWithImage,
+                locationMap,
+              ],
             },
           ],
         },
