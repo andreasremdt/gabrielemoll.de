@@ -37,6 +37,7 @@ export default function useMobileMenu() {
 
   useEffect(() => {
     if (isMenuVisible) {
+      // @eslint-disable-next-line react-hooks/exhaustive-deps
       setIsMenuVisible(false)
     }
   }, [pathname])
