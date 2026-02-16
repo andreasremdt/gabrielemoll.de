@@ -9,13 +9,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!page) {
     return {
-      title: 'Website template',
-      description: 'Website template description',
+      title: 'Gabriele Moll',
+      description: '',
     }
   }
 
   return {
-    title: 'Willkommen | Website template',
+    title: 'Willkommen | Gabriele Moll',
     description: '',
   }
 }
