@@ -13,7 +13,7 @@ export default async function Footer({ className, ...props }: ComponentPropsWith
       {...props}
     >
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <p className="order-2 md:order-1">
+        <p className="order-2 md:order-1 text-center md:text-left">
           &copy; {new Date().getFullYear()} Gabriele Moll. Alle Rechte vorbehalten.
           <br />
           Design & Entwicklung von{' '}
@@ -26,7 +26,7 @@ export default async function Footer({ className, ...props }: ComponentPropsWith
         <Navigation
           title="Fußmenü"
           size="sm"
-          className="md:justify-self-end order-1 md:order-2"
+          className="md:justify-self-end order-1 md:order-2 flex justify-center"
           items={menus.footerMenu}
         />
       </div>

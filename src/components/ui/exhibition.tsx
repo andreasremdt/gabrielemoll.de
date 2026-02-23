@@ -38,12 +38,12 @@ export default function Exhibition({
       <div className="md:w-2/3">
         <time
           dateTime={date}
-          className="font-sans text-accent-800 relative after:w-28 after:h-px after:bg-accent-800 after:absolute after:left-full after:top-1/2 after:ml-8 mb-4 block w-max"
+          className="font-sans text-accent-800 relative md:after:w-28 md:after:h-px md:after:bg-accent-800 md:after:absolute md:after:left-full md:after:top-1/2 md:after:ml-8 md:mb-4 block w-max"
         >
           {formatDate(date)}
         </time>
 
-        <h2 className="font-title text-3xl md:text-4xl mb-8">{title}</h2>
+        <h2 className="font-title text-3xl md:text-4xl md:mb-8 mb-4">{title}</h2>
 
         {description ? (
           <p

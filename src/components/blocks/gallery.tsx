@@ -31,7 +31,7 @@ export default function Gallery({ intro, title, images, mainPartOfPage }: Galler
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       {images.map((image) => {
         if (typeof image === 'string') return null
 

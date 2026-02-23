@@ -14,7 +14,7 @@ export default function LocationMap({ intro, title, directions }: LocationMapBlo
 
         <Map className="h-96 shadow-xl mb-16" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           {directions.map((direction) => (
             <div key={direction.id}>
               <h3 className="text-accent-800 font-sans uppercase text-xl mb-2">

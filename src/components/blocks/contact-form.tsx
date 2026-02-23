@@ -21,7 +21,7 @@ export default function ContactForm({
           <TiltedImage image={image} width={400} height={600} className="hidden lg:block" />
 
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
               <div>
                 <h2 className="text-accent-800 font-sans text-lg mb-2">Anschrift</h2>
                 <p dangerouslySetInnerHTML={{ __html: address.replace(/\n/g, '<br />') }} />
@@ -51,6 +51,7 @@ export default function ContactForm({
                 </ul>
               </div>
             </div>
+
             <ContactFormClient />
           </div>
         </div>
