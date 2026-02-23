@@ -12,9 +12,9 @@ export default async function Header({ className, ...props }: ComponentPropsWith
         Zum Inhalt springen
       </Link>
 
-      <header className={cn('border-b border-neutral-100 py-8 bg-accent-50', className)} {...props}>
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="font-title text-2xl sm:text-3xl text-neutral-950">
+      <header className={cn('border-b border-neutral-100 py-6 bg-accent-50', className)} {...props}>
+        <div className="max-w-7xl mx-auto px-4 flex lg:flex-col flex-row gap-6 items-center justify-between">
+          <Link href="/" className="font-title text-2xl sm:text-4xl text-neutral-950">
             Gabriele Moll
           </Link>
 
