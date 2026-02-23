@@ -29,7 +29,11 @@ const pages: CollectionConfig = {
     afterDelete: [revalidateDelete],
   },
   versions: {
-    drafts: true,
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
   },
   labels: {
     singular: 'Seite',
