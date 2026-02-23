@@ -11,16 +11,16 @@ type Props = ComponentPropsWithoutRef<'div'> & {
 
 export default function Alert({ children, className, title, variant, ...props }: Props) {
   return (
-    <div role="alert" className={cn('', className)} aria-live="polite" {...props}>
+    <div role="alert" className={cn('flex flex-col p-4 bg-white border border-neutral-100', className)} aria-live="polite" {...props}>
       <Icon
         name={variant === 'success' ? 'check' : 'error'}
-        className={cn('', {
-          '': variant === 'error',
-          '': variant === 'success',
+        className={cn('mb-2 size-10', {
+          'text-red-300': variant === 'error',
+          'text-emerald-200': variant === 'success',
         })}
       />
 
-      <Heading level="h3" tag="h2">
+      <Heading level="h3" tag="h2" className="font-bold text-lg">
         {title}
       </Heading>
       <p>{children}</p>

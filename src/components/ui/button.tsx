@@ -32,9 +32,9 @@ export default function Button({
   ...props
 }: Props) {
   const baseClasses = cn(
-    'font-sans font-medium uppercase cursor-pointer',
+    'font-sans font-medium uppercase cursor-pointer disabled:opacity-50 disabled:cursor-default',
     {
-      'text-accent-800 hover:text-accent-700': variant === 'primary',
+      'text-accent-800 hover:text-accent-700 disabled:hover:text-accent-800': variant === 'primary',
       '': variant === 'secondary',
     },
     className,

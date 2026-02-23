@@ -45,8 +45,8 @@ export default buildConfig({
     },
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: 'no-reply@regio-lions.com',
-    defaultFromName: 'Regio Lions',
+    defaultFromAddress: 'no-reply@gabrielemoll.de',
+    defaultFromName: 'Gabriele Moll',
     transportOptions: {
       host: process.env.EMAIL_SMTP_HOST,
       port: 587,

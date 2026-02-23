@@ -64,19 +64,19 @@ export default function ContactFormClient() {
   return (
     <>
       {submitStatus === 'success' ? (
-        <Alert title="Vielen Dank für Ihre Nachricht." variant="success" className="mb-8">
-          Wir werden uns schnellstmöglich um Ihre Nachricht kümmern.
+        <Alert title="Vielen Dank für Ihre Nachricht." variant="success" className="mb-16">
+          Ich werde mich schnellstmöglich um Ihre Nachricht kümmern.
         </Alert>
       ) : null}
 
       {submitStatus === 'error' ? (
-        <Alert title="Fehler beim Senden der Nachricht." variant="error" className="mb-8">
-          Bitte versuchen Sie es später erneut oder schreiben Sie uns eine E-Mail an{' '}
+        <Alert title="Fehler beim Senden der Nachricht." variant="error" className="mb-16">
+          Bitte versuchen Sie es später erneut oder schreiben Sie mir eine E-Mail an{' '}
           <a
-            href="mailto:info@regio-lions.de"
+            href="mailto:info@gabrielemoll.de"
             className="text-primary-900 font-medium underline hover:text-gray-900 focus-visible:text-gray-900"
           >
-            info@regio-lions.de
+            info@gabrielemoll.de
           </a>
           .
         </Alert>
@@ -110,6 +110,7 @@ export default function ContactFormClient() {
                   required
                   autoComplete="given-name"
                   error={field.state.meta.errors[0]}
+                  disabled={submitStatus === 'loading' || submitStatus === 'success'}
                 />
                 <Label htmlFor="name">Vor- und Nachname</Label>
                 <FieldError id={field.name} error={field.state.meta.errors[0]} />
@@ -137,6 +138,7 @@ export default function ContactFormClient() {
                 required
                 autoComplete="email"
                 error={field.state.meta.errors[0]}
+                disabled={submitStatus === 'loading' || submitStatus === 'success'}
               />
               <Label htmlFor="email">E-Mail</Label>
               <FieldError id={field.name} error={field.state.meta.errors[0]} />
@@ -155,6 +157,7 @@ export default function ContactFormClient() {
                 onBlur={field.handleBlur}
                 placeholder=" "
                 autoComplete="tel"
+                disabled={submitStatus === 'loading' || submitStatus === 'success'}
               />
               <Label htmlFor="phone">Telefonnummer</Label>
             </div>
@@ -179,6 +182,7 @@ export default function ContactFormClient() {
                 required
                 minLength={10}
                 error={field.state.meta.errors[0]}
+                disabled={submitStatus === 'loading' || submitStatus === 'success'}
               />
               <Label htmlFor="message">Ihre Nachricht</Label>
               <FieldError id={field.name} error={field.state.meta.errors[0]} />
@@ -193,8 +197,7 @@ export default function ContactFormClient() {
         >
           {submitStatus === 'success' ? 'Nachricht erfolgreich gesendet' : null}
           {submitStatus === 'loading' ? 'Wird gesendet...' : null}
-          {submitStatus === 'idle' ? 'Nachricht senden →' : null}
-          {submitStatus === 'error' ? 'Fehler beim Senden' : null}
+          {submitStatus === 'idle' || submitStatus === 'error' ? 'Nachricht senden →' : null}
         </Button>
       </form>
     </>

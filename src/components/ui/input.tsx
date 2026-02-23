@@ -9,7 +9,7 @@ export default function Input({ className, type = 'text', id, error, ...props }:
   return (
     <input
       className={cn(
-        'peer h-12 w-full border-l border-b border-neutral-100 bg-white px-4 text-neutral-600 outline-none font-sans text-sm hover:border-neutral-200 focus-visible:border-neutral-300',
+        'peer h-12 w-full border-l border-b border-neutral-100 bg-white px-4 text-neutral-600 outline-none font-sans text-sm hover:border-neutral-200 focus-visible:border-neutral-300 disabled:opacity-50 disabled:hover:border-neutral-100',
         { 'border-red-400 hover:border-red-500 focus-visible:border-red-500': error },
         className,
       )}

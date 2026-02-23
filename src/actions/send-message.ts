@@ -31,11 +31,15 @@ export default async function sendMessage(data: FormInputData): Promise<SendMess
 
   const { name, email, phone, message } = data
 
+  return {
+    success: false,
+    values: data,
+  }
   try {
     const payload = await getPayload({ config })
 
     await payload.sendEmail({
-      to: '',
+      to: process.env.EMAIL_SMTP_TO,
       subject: `Anfrage von ${name}`,
       replyTo: email,
       text: `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone || '-'}\n\n${message}`,
