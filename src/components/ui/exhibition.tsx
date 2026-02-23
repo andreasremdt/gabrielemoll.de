@@ -1,7 +1,10 @@
-import type { ComponentPropsWithoutRef } from 'react'
+"use client"
+
+import { useState, type ComponentPropsWithoutRef } from 'react'
 import type { Media } from '@/payload-types'
 import { cn, formatDate } from '@/lib/utils'
 import TiltedImage from './tilted-image'
+import Lightbox from '../lightbox'
 
 type Props = ComponentPropsWithoutRef<'article'> & {
   date: string
@@ -20,6 +23,8 @@ export default function Exhibition({
   reverse = false,
   ...props
 }: Props) {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+
   return (
     <article
       className={cn('flex flex-col md:flex-row gap-8 md:gap-16 md:items-center', className, {
@@ -28,12 +33,18 @@ export default function Exhibition({
       {...props}
     >
       <div className="shrink-0 md:w-1/3">
-        <TiltedImage
-          image={image}
-          width={350}
-          height={350}
-          className="shadow-xl size-[200px] md:size-auto"
-        />
+        <a href={typeof image === 'string' ? image : image.imagekit?.url || ''}
+          onClick={(event) => {
+            event.preventDefault()
+            setIsLightboxOpen(true)
+          }}>
+          <TiltedImage
+            image={image}
+            width={350}
+            height={350}
+            className="shadow-xl size-[200px] md:size-auto"
+          />
+        </a>
       </div>
       <div className="md:w-2/3">
         <time
@@ -52,6 +63,13 @@ export default function Exhibition({
           />
         ) : null}
       </div>
+
+      <Lightbox
+        images={[image]}
+        currentIndex={0}
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+      />
     </article>
   )
 }

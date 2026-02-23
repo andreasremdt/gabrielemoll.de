@@ -55,6 +55,12 @@ const icons = {
       d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
     />
   ),
+  'chevron-right': (
+    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+  ),
+  'chevron-left': (
+    <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 19.5-7.5-7.5 7.5-7.5" />
+  ),
 }
 
 export default function Icon({ name, className, ...props }: Props) {
