@@ -33,6 +33,11 @@ const gallery: Block = {
       },
     },
     {
+      name: 'content',
+      type: 'textarea',
+      label: 'Weiterer Text',
+    },
+    {
       name: 'images',
       type: 'upload',
       label: 'Bilder',

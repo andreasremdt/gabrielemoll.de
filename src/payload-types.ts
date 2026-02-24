@@ -253,6 +253,7 @@ export interface GalleryBlock {
   mainPartOfPage?: boolean | null;
   intro?: string | null;
   title?: string | null;
+  content?: string | null;
   images: (string | Media)[];
   id?: string | null;
   blockName?: string | null;
@@ -617,6 +618,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
   mainPartOfPage?: T;
   intro?: T;
   title?: T;
+  content?: T;
   images?: T;
   id?: T;
   blockName?: T;
