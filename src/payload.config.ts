@@ -45,7 +45,7 @@ export default buildConfig({
     },
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: 'no-reply@gabrielemoll.de',
+    defaultFromAddress: process.env.EMAIL_SMTP_USER,
     defaultFromName: 'Gabriele Moll',
     transportOptions: {
       host: process.env.EMAIL_SMTP_HOST,

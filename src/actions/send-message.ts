@@ -31,15 +31,12 @@ export default async function sendMessage(data: FormInputData): Promise<SendMess
 
   const { name, email, phone, message } = data
 
-  return {
-    success: false,
-    values: data,
-  }
   try {
     const payload = await getPayload({ config })
 
     await payload.sendEmail({
       to: process.env.EMAIL_SMTP_TO,
+      from: process.env.EMAIL_SMTP_USER,
       subject: `Anfrage von ${name}`,
       replyTo: email,
       text: `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone || '-'}\n\n${message}`,
@@ -57,6 +54,7 @@ export default async function sendMessage(data: FormInputData): Promise<SendMess
 
     return { success: true }
   } catch (_) {
+    console.error(_)
     return {
       success: false,
       values: data,
